@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; script-src 'self'; style-src 'self' 'unsafe-inline';">
+<title>设置 - Workflow Manager</title>
+<link rel="stylesheet" href="settings.css">
+</head>
+<body>
+<div class="settings-layout">
+  <nav class="settings-nav">
+    <div class="settings-nav-title">设置</div>
+    <button class="settings-nav-item active" data-page="general">常规</button>
+    <button class="settings-nav-item" data-page="appearance">外观</button>
+    <button class="settings-nav-item" data-page="data">数据</button>
+    <button class="settings-nav-item" data-page="advanced">高级</button>
+  </nav>
+  <main class="settings-content" id="settingsContent">
+    <!-- 常规设置 -->
+    <div id="page-general" class="settings-page">
+      <h2>常规</h2>
+      <div class="settings-section">
+        <div class="setting-item">
+          <label class="setting-label">启动时自动运行</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="autoStart">
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">窗口位置记忆</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="rememberWindowPos" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">任务完成通知</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="taskCompleteNotification" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">应用语言</label>
+          <select id="appLanguage" class="setting-select">
+            <option value="zh-CN">中文 (简体)</option>
+            <option value="en-US">English</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 外观设置 -->
+    <div id="page-appearance" class="settings-page hidden">
+      <h2>外观</h2>
+      <div class="settings-section">
+        <div class="setting-item">
+          <label class="setting-label">主题</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="theme" value="light" checked>
+              <span>浅色</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="theme" value="dark">
+              <span>深色</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="theme" value="system">
+              <span>跟随系统</span>
+            </label>
+          </div>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">字体大小</label>
+          <div class="range-control">
+            <input type="range" id="fontSize" min="12" max="18" value="13">
+            <span class="range-value">13px</span>
+          </div>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">图标大小</label>
+          <div class="range-control">
+            <input type="range" id="iconSize" min="12" max="20" value="16">
+            <span class="range-value">16px</span>
+          </div>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">紧凑模式</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="compactMode">
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 数据设置 -->
+    <div id="page-data" class="settings-page hidden">
+      <h2>数据</h2>
+      <div class="settings-section">
+        <div class="setting-item">
+          <label class="setting-label">数据库位置</label>
+          <div class="setting-value" id="dbPath">C:\Users\...\workflow.db</div>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">自动备份</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="autoBackup" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">备份间隔</label>
+          <select id="backupInterval" class="setting-select">
+            <option value="1">1 小时</option>
+            <option value="6">6 小时</option>
+            <option value="24" selected>24 小时</option>
+            <option value="72">3 天</option>
+          </select>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">保留备份数量</label>
+          <input type="number" id="backupCount" min="1" max="50" value="10" class="setting-input">
+        </div>
+        <div class="setting-item actions">
+          <button class="btn btn-primary" id="exportData">导出数据</button>
+          <button class="btn btn-secondary" id="clearCache">清除缓存</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 高级设置 -->
+    <div id="page-advanced" class="settings-page hidden">
+      <h2>高级</h2>
+      <div class="settings-section">
+        <div class="setting-item">
+          <label class="setting-label">AI 辅助功能</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="aiAssistant">
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">开发者模式</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="devMode">
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">日志级别</label>
+          <select id="logLevel" class="setting-select">
+            <option value="error">Error</option>
+            <option value="warn">Warning</option>
+            <option value="info" selected>Info</option>
+            <option value="debug">Debug</option>
+          </select>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">快捷键</label>
+          <button class="btn btn-secondary" id="openShortcuts">配置快捷键</button>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">重置设置</label>
+          <button class="btn btn-danger" id="resetSettings">重置所有设置</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="settings.js"></script>
+</body>
+</html>

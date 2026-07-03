@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; script-src 'self'; style-src 'self' 'unsafe-inline';">
+<title>番茄钟</title>
+<link rel="stylesheet" href="pomodoro.css">
+</head>
+<body>
+<div class="pomo-window">
+  <div class="pomo-header">
+    <span class="pomo-title">番茄钟</span>
+    <button id="pomoClose" class="pomo-close-btn" title="关闭">✕</button>
+  </div>
+  <div class="pomo-display" id="pomoDisplay">25:00</div>
+  <div class="pomo-label" id="pomoLabel">专注</div>
+  <div class="pomo-presets" id="pomoPresets"></div>
+  <div class="pomo-controls">
+    <button id="pomoStart" class="pomo-btn-start">▶ 开始</button>
+    <button id="pomoPause" class="pomo-btn-pause" style="display:none;">⏸ 暂停</button>
+    <button id="pomoReset" class="pomo-btn-reset">↺</button>
+  </div>
+  <div class="pomo-custom">
+    <input type="number" id="pomoCustomMin" value="25" min="1" max="120" title="自定义分钟" />
+    <span>分钟</span>
+    <button id="pomoCustomSet">设为预设</button>
+  </div>
+</div>
+<script src="pomodoro.js"></script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: file:;">
+<title>Workflow Manager</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Fluent UI System Icons -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <!-- 左侧导航图标 -->
+    <symbol id="icon-template" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="4" y="3" width="16" height="18" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M8 8h8M8 12h8M8 16h5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-project" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-archive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M3 7h18v2a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M5 11v6a2 2 0 002 2h10a2 2 0 002-2v-6M10 14h4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    
+    <!-- 树节点图标 -->
+    <symbol id="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M4 20h4l10-10-4-4L4 16v4z" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 6l4 4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-collapse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M5 12l5 5L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-check-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="4" y="4" width="16" height="16" rx="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    
+    <!-- 操作图标 -->
+    <symbol id="icon-add" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-delete" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M3 6h18M19 6v14c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6m3 0V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2M10 11l0 6M14 11l0 6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <polygon points="5 3 19 12 5 21" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M6 4h4v16H6zM14 4h4v16h-4z" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-stop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="6" y="6" width="12" height="12" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    
+    <!-- 通用图标 -->
+    <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="12" r="3" stroke-linecap="round"/>
+      <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-pomodoro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="13" r="8" stroke-linecap="round"/>
+      <path d="M12 9v4l2 2M9 2h6M12 2v2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-export" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M4 16v1.5a2.5 2.5 0 002.5 2.5h11A2.5 2.5 0 0020 17.5V16M7 16l5-5 5 5M12 4v12" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-import" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M4 8V6.5a2.5 2.5 0 012.5-2.5h11A2.5 2.5 0 0120 6.5V8M17 8l-5 5-5-5M12 20V8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    
+    <!-- 窗口控制 -->
+    <symbol id="icon-minimize" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M6 12h12" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-maximize" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="3" y="3" width="18" height="18" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M6 6l12 12M18 6l-12 12" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </svg>
+
+  <header class="titlebar">
+    <div class="titlebar-drag">
+      <svg class="titlebar-icon" width="18" height="18" viewBox="0 0 24 24">
+        <use href="#icon-project"/>
+      </svg>
+      <span class="titlebar-title">Workflow Manager</span>
+    </div>
+
+    <nav class="titlebar-menubar" id="topMenubar">
+      <div class="menu-item" data-menu="file">
+        <button class="menu-item-btn">文件(<u>F</u>)</button>
+        <div class="menu-dropdown" id="menu-file"></div>
+      </div>
+      <div class="menu-item" data-menu="edit">
+        <button class="menu-item-btn">编辑(<u>E</u>)</button>
+        <div class="menu-dropdown" id="menu-edit"></div>
+      </div>
+      <div class="menu-item" data-menu="view">
+        <button class="menu-item-btn">视图(<u>V</u>)</button>
+        <div class="menu-dropdown" id="menu-view"></div>
+      </div>
+      <div class="menu-item" data-menu="help">
+        <button class="menu-item-btn">帮助(<u>H</u>)</button>
+        <div class="menu-dropdown" id="menu-help"></div>
+      </div>
+    </nav>
+
+    <div class="titlebar-search">
+      <svg width="14" height="14" viewBox="0 0 24 24"><use href="#icon-search"/></svg>
+      <input id="searchInput" type="text" placeholder="搜索..." />
+    </div>
+
+    <div class="window-controls">
+      <button id="btnPomodoro" class="win-btn pomo-btn" title="番茄钟">
+        <svg width="13" height="13" viewBox="0 0 24 24"><use href="#icon-pomodoro"/></svg>
+      </button>
+      <button id="btnMin" class="win-btn" title="最小化">
+        <svg width="14" height="14" viewBox="0 0 24 24"><use href="#icon-minimize"/></svg>
+      </button>
+      <button id="btnMax" class="win-btn" title="最大化">
+        <svg width="14" height="14" viewBox="0 0 24 24"><use href="#icon-maximize"/></svg>
+      </button>
+      <button id="btnClose" class="win-btn close" title="关闭">
+        <svg width="14" height="14" viewBox="0 0 24 24"><use href="#icon-close"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- 左侧：Workflow 列表 -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-section">
+        <div class="section-header" data-section="template">
+          <button class="section-toggle" title="折叠/展开">
+            <svg width="10" height="10" viewBox="0 0 24 24"><use href="#icon-expand"/></svg>
+          </button>
+          <svg class="section-icon" width="18" height="18" viewBox="0 0 24 24">
+            <use href="#icon-template"/>
+          </svg>
+          <span>模板</span>
+          <button class="icon-btn" id="btnNewTemplate" title="新建模板">
+            <svg width="16" height="16" viewBox="0 0 24 24">
+              <use href="#icon-add"/>
+            </svg>
+          </button>
+        </div>
+        <ul class="wf-list" id="templateList"></ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="section-header" data-section="project">
+          <button class="section-toggle" title="折叠/展开">
+            <svg width="10" height="10" viewBox="0 0 24 24"><use href="#icon-expand"/></svg>
+          </button>
+          <svg class="section-icon" width="18" height="18" viewBox="0 0 24 24">
+            <use href="#icon-project"/>
+          </svg>
+          <span>项目</span>
+          <button class="icon-btn" id="btnNewProject" title="新建项目">
+            <svg width="16" height="16" viewBox="0 0 24 24">
+              <use href="#icon-add"/>
+            </svg>
+          </button>
+        </div>
+        <ul class="wf-list" id="projectList"></ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="section-header" data-section="archived">
+          <button class="section-toggle" title="折叠/展开">
+            <svg width="10" height="10" viewBox="0 0 24 24"><use href="#icon-expand"/></svg>
+          </button>
+          <svg class="section-icon" width="18" height="18" viewBox="0 0 24 24">
+            <use href="#icon-archive"/>
+          </svg>
+          <span>归档</span>
+        </div>
+        <ul class="wf-list" id="archivedList"></ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="section-header" data-section="trash">
+          <button class="section-toggle" title="折叠/展开">
+            <svg width="10" height="10" viewBox="0 0 24 24"><use href="#icon-expand"/></svg>
+          </button>
+          <svg class="section-icon" width="18" height="18" viewBox="0 0 24 24">
+            <use href="#icon-delete"/>
+          </svg>
+          <span>回收站</span>
+        </div>
+        <ul class="wf-list" id="trashList"></ul>
+      </div>
+      <div class="sidebar-footer">
+        <button class="gear-btn" id="gearBtn" title="设置">
+          <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-settings"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- 齿轮菜单 -->
+    <div class="gear-menu" id="gearMenu" style="display:none;"></div>
+
+    <!-- 关于弹窗 -->
+    <div id="aboutModal" class="modal-mask" style="display:none;">
+      <div class="modal" style="max-width:340px;text-align:center;">
+        <div class="modal-title" style="justify-content:center;">Workflow Manager</div>
+        <div class="modal-message" style="text-align:center;">
+          Version 1.0<br><br>本地工作流管理工具
+        </div>
+        <div class="modal-actions" style="justify-content:center;">
+          <button class="primary ok">确定</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-divider" id="dividerLeft"></div>
+
+    <!-- 中间：Workflow Tree -->
+    <section class="workspace">
+      <div class="workspace-header">
+        <div class="wf-title-wrap">
+          <input id="wfTitle" class="wf-title" type="text" />
+          <span id="wfBadge" class="wf-badge"></span>
+        </div>
+        <div class="workspace-meta">
+          <span id="progressText">0 / 0 完成</span>
+          <span class="sep">·</span>
+          <span id="timeTotal">0h</span>
+          <label class="template-time-toggle" id="templateTimeToggle" style="display:none" title="显示模板参考时间">
+            <input type="checkbox" id="chkTemplateTime" />
+            <span class="toggle-label">模板耗时</span>
+          </label>
+        </div>
+        <div class="workspace-actions">
+          <button id="btnAddNode" class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24">
+              <use href="#icon-add"/>
+            </svg>
+            <span>节点</span>
+          </button>
+          <button id="btnSaveTemplate">另存模板</button>
+          <button id="btnArchive">归档</button>
+          <button id="btnDelete" class="btn-danger">删除</button>
+        </div>
+      </div>
+      <div class="tree-container">
+        <ul class="tree" id="treeRoot"></ul>
+        <div class="empty-state" id="emptyWorkspace">
+          <div class="empty-icon">
+            <svg width="48" height="48" viewBox="0 0 20 20">
+              <path fill="currentColor" d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm2 2v8h12V8H4zm2-2h8l-2-2H6z"/>
+            </svg>
+          </div>
+          <div class="empty-title">选择或创建一个工作流</div>
+          <div class="empty-sub">左侧选择模板或项目，开始执行你的工作流程</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="panel-divider" id="dividerRight"></div>
+
+    <!-- 右侧：节点详情 -->
+    <aside class="detail" id="detail">
+      <div class="detail-inner" id="detailInner">
+        <div class="empty-state">
+          <div class="empty-icon">
+            <svg width="40" height="40" viewBox="0 0 20 20">
+              <path fill="currentColor" d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 2a6 6 0 110 12 6 6 0 010-12zm0 2a4 4 0 100 8 4 4 0 000-8z"/>
+            </svg>
+          </div>
+          <div class="empty-title">未选择节点</div>
+          <div class="empty-sub">在中间流程树中点击节点查看详情</div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- 右键菜单 (DOM 实现) -->
+  <div id="contextMenu" class="context-menu" style="display:none;"></div>
+
+  <!-- 说明展开浮层（覆盖中+右栏） -->
+  <div id="expandOverlay" class="expand-overlay" style="display:none;">
+    <div class="expand-backdrop"></div>
+    <div class="expand-panel">
+      <div class="expand-bar">
+        <button id="expandBack" class="expand-back-btn" title="返回">
+          <svg width="16" height="16" viewBox="0 0 24 24"><use href="#icon-collapse"/></svg>
+          <span>返回</span>
+        </button>
+        <span class="expand-node-title" id="expandNodeTitle"></span>
+      </div>
+      <div class="expand-body" id="expandBody"></div>
+    </div>
+  </div>
+
+  <!-- Editor.js -->
+  <script src="../../node_modules/@editorjs/editorjs/dist/editorjs.umd.js"></script>
+  <script src="../../node_modules/@editorjs/header/dist/header.umd.js"></script>
+  <script src="../../node_modules/@editorjs/image/dist/image.umd.js"></script>
+  <script src="../../node_modules/@editorjs/list/dist/editorjs-list.umd.js"></script>
+  <script src="../../node_modules/@editorjs/paragraph/dist/paragraph.umd.js"></script>
+  <script src="../../node_modules/@editorjs/underline/dist/underline.umd.js"></script>
+
+  <script src="markdown.js"></script>
+  <script src="modal.js"></script>
+  <script src="editor.js"></script>
+  <script src="tree.js"></script>
+  <script src="detail.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

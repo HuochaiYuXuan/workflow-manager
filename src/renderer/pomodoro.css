@@ -1,0 +1,86 @@
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  font-family: "Segoe UI Variable", "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-size: 13px; color: #1a1a1a;
+  background: rgba(252,252,252,0.97);
+  user-select: none;
+  overflow: hidden;
+}
+
+.pomo-window {
+  display: flex; flex-direction: column;
+  align-items: center;
+  padding: 12px 16px 16px;
+  height: 100%;
+}
+
+.pomo-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 8px;
+  -webkit-app-region: drag;
+}
+.pomo-title { font-size: 12px; font-weight: 600; color: #808080; }
+.pomo-close-btn {
+  width: 22px; height: 22px;
+  border: none; background: transparent;
+  color: #808080; border-radius: 4px;
+  font-size: 14px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  -webkit-app-region: no-drag;
+}
+.pomo-close-btn:hover { background: #fde7e9; color: #c42b1c; }
+
+.pomo-display {
+  font-size: 42px; font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #1a1a1a; letter-spacing: 2px;
+  margin-bottom: 2px; transition: color 0.3s;
+}
+.pomo-display.running { color: #c42b1c; }
+.pomo-display.paused { color: #e67e00; }
+.pomo-label {
+  font-size: 12px; color: #808080; margin-bottom: 12px;
+}
+.pomo-presets {
+  display: flex; gap: 4px; justify-content: center; margin-bottom: 10px;
+}
+.pomo-presets button {
+  padding: 3px 10px;
+  border: 1px solid rgba(0,0,0,0.1); background: #fff;
+  border-radius: 12px; font-size: 11px; cursor: pointer;
+  font-family: inherit; color: #555;
+}
+.pomo-presets button:hover { border-color: #005fb8; color: #005fb8; }
+.pomo-presets button.active { background: #005fb8; color: #fff; border-color: #005fb8; }
+.pomo-controls {
+  display: flex; gap: 6px; justify-content: center; margin-bottom: 10px;
+}
+.pomo-btn-start, .pomo-btn-pause, .pomo-btn-reset {
+  padding: 5px 16px;
+  border: 1px solid rgba(0,0,0,0.1); background: #fff;
+  border-radius: 6px; font-size: 12px; cursor: pointer;
+  font-family: inherit; color: #1a1a1a;
+}
+.pomo-btn-start { background: #c42b1c; color: #fff; border-color: #c42b1c; }
+.pomo-btn-start:hover { background: #a01a10; }
+.pomo-btn-pause { color: #e67e00; border-color: #e67e00; }
+.pomo-btn-reset { width: 36px; padding: 5px 0; }
+.pomo-custom {
+  display: flex; align-items: center; gap: 4px;
+  justify-content: center; font-size: 11px; color: #808080;
+}
+.pomo-custom input {
+  width: 40px; padding: 2px 4px;
+  border: 1px solid rgba(0,0,0,0.12); border-radius: 4px;
+  text-align: center; font-size: 11px; font-family: inherit;
+}
+.pomo-custom button {
+  padding: 2px 8px;
+  border: 1px solid rgba(0,0,0,0.1); background: #fff;
+  border-radius: 4px; font-size: 10px; cursor: pointer;
+  font-family: inherit; color: #555;
+}
+.pomo-custom button:hover { border-color: #005fb8; color: #005fb8; }
