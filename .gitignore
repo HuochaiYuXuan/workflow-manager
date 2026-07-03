@@ -4,3 +4,7 @@ dist/
 .env
 .agents/
 wdkns-skills/
+srt/
+srt_clean/
+*.srt
+skills-lock.json
