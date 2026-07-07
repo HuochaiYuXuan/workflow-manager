@@ -57,9 +57,6 @@ npm run build
 │       ├── pomodoro.*   # 番茄钟
 │       └── settings.*   # 设置页
 ├── scripts/             # 模板创建脚本
-│   ├── create_sop_template.js    # Live2D SOP 模板（12阶段）
-│   ├── create_live2d_template.js # Live2D 完整流程模板
-│   └── verify_sop.js             # 模板校验
 ├── agent.md             # AI Agent 开发指南
 └── TEMPLATE_AGENT_SPEC.md
 ```
